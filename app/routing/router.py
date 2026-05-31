@@ -4,12 +4,38 @@ from pathlib import Path
 
 class Router:
 
-    def route(self, filepath, category):
+    def route(
+        self,
+        filepath,
+        sender,
+        category
+    ):
 
-        output_dir = Path("output") / category
+        if sender and sender != "unknown":
 
-        output_dir.mkdir(parents=True, exist_ok=True)
+            username = sender.split("@")[0]
 
-        destination = output_dir / Path(filepath).name
+        else:
 
-        shutil.copy(filepath, destination)
+            username = "unknown_user"
+
+        output_dir = (
+            Path("output")
+            / username
+            / category
+        )
+
+        output_dir.mkdir(
+            parents=True,
+            exist_ok=True
+        )
+
+        destination = (
+            output_dir
+            / Path(filepath).name
+        )
+
+        shutil.copy(
+            filepath,
+            destination
+        )

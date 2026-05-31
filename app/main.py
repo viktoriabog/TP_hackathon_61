@@ -27,7 +27,11 @@ class EmailProcessingPipeline:
 
                 category, confidence = self.classifier.classify(email)
 
-                self.router.route(str(filepath), category)
+                self.router.route(
+                    str(filepath),
+                    email.sender,
+                    category
+                )
 
                 self.logger.info(
                     f"{filepath.name} -> {category}"
@@ -45,3 +49,5 @@ if __name__ == "__main__":
     pipeline = EmailProcessingPipeline()
 
     pipeline.process_emails()
+
+    
