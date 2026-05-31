@@ -1,36 +1,48 @@
-import re
 from app.models.email import Email
+import re
+
 class TxtParser:
 
     def parse(self, filepath):
 
-        with open(
-            filepath,
-            "r",
-            encoding="utf-8"
-        ) as f:
-
+        with open(filepath, "r", encoding="utf-8") as f:
             content = f.read()
 
         sender = "unknown"
-
-        match = re.search(
-            r"From:.*<(.+?)>",
-            content
-        )
-
-        if match:
-            sender = match.group(1)
-
         subject = ""
 
-        match = re.search(
-            r"Subject:(.+)",
-            content
-        )
+        for line in content.splitlines():
 
-        if match:
-            subject = match.group(1).strip()
+            line_lower = line.lower().strip()
+
+            if (
+                line_lower.startswith("from:")
+                or
+                line_lower.startswith("от кого:")
+            ):
+
+                sender_text = line.split(":", 1)[1].strip()
+
+                match = re.search(
+                    r"<([^>]+)>",
+                    sender_text
+                )
+
+                if match:
+                    sender = match.group(1)
+                else:
+                    sender = sender_text
+
+            elif (
+                line_lower.startswith("subject:")
+                or
+                line_lower.startswith("тема:")
+            ):
+
+                subject = line.split(
+                    ":",
+                    1
+                )[1].strip()
 
         return Email(
             subject=subject,
