@@ -19,7 +19,8 @@ class EmailProcessingPipeline:
 
         inbox = Path("inbox")
 
-        for filepath in inbox.iterdir():
+        for filepath in sorted(inbox.iterdir()):
+
 
             try:
 

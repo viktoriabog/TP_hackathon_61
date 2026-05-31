@@ -4,8 +4,7 @@ from pathlib import Path
 
 class Router:
 
-    def route(self, filepath, category):
-
+    def route(self, filepath, sender, category):
         output_dir = Path("output") / category
 
         output_dir.mkdir(
