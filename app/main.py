@@ -6,6 +6,7 @@ from app.routing.router import Router
 from app.utils.logger import Logger
 from collections import defaultdict
 from validate import validate
+from review_unknown import review
 import os
 os.chdir(Path(__file__).parent.parent)
 def parse_arguments():
@@ -88,3 +89,4 @@ if __name__ == "__main__":
         sys.exit(1)
     pipeline = EmailProcessingPipeline()
     pipeline.process_emails()
+    review()
