@@ -29,6 +29,8 @@ class EmailProcessingPipeline:
         self.base_dir = Path(__file__).resolve().parents[1]
 
     def process_emails(self):
+        self.stats = defaultdict(int)
+
         inbox = self.base_dir / "inbox"
 
         if not inbox.exists():
@@ -73,6 +75,7 @@ class EmailProcessingPipeline:
                     pass
 
         self.print_statistics(processed, failed)
+        return processed, failed
 
     def print_statistics(self, processed, failed):
         print("\n=== Итоги ===")
@@ -90,3 +93,4 @@ if __name__ == "__main__":
     pipeline = EmailProcessingPipeline()
     pipeline.process_emails()
     review()
+    processed, failed = pipeline.process_emails()
