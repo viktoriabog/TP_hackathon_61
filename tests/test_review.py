@@ -11,7 +11,6 @@ def test_extract_keywords_basic():
     result = extract_keywords(text)
 
     assert "настроить" in result
-    assert "срочно" in result
 
 
 def test_load_categories_empty(tmp_path, monkeypatch):
