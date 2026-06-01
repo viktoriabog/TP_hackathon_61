@@ -20,7 +20,7 @@ class Router:
             Path(filepath).name
         )
 
-        shutil.copy(
+        shutil.move(
             filepath,
             destination
-        )
+            )
