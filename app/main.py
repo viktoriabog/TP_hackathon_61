@@ -49,7 +49,14 @@ class EmailProcessingPipeline:
             try:
                 email = self.parser.parse(str(filepath))
                 category, confidence = self.classifier.classify(email)
-                self.router.route(str(filepath),email.sender,category)
+                is_draft = not email.recipient.strip()
+
+                self.router.route(
+                    str(filepath),
+                    email.sender,
+                    category,
+                    is_draft=is_draft
+                )
                 self.stats[category] += 1
                 processed += 1
                 self.logger.info(f"{filepath.name} -> {category} " f"(количество совпавших слов = {confidence})")

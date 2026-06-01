@@ -14,5 +14,6 @@ class JsonParser:
             subject=data.get("subject", ""),
             body=data.get("body", ""),
             sender=data.get("sender", ""),
+            recipient=data.get("recipient", data.get("to", "")),
             filepath=filepath
         )
