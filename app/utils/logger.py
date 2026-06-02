@@ -1,7 +1,7 @@
 from datetime import datetime
 
 class Logger:
-    def __init__(self, log_file="processing.log"):
+    def init(self, log_file="processing.log"):
         self.log_file = log_file
 
     def _time(self):
@@ -12,8 +12,7 @@ class Logger:
 
         print(line)
 
-        with open(self.log_file, "a", encoding="utf-8") as f:
-            f.write(line + "\n")
+        
 
     def info(self, message):
         self._write("INFO", message)

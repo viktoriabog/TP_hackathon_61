@@ -1,7 +1,13 @@
 #!/bin/bash
 
+export PYTHONIOENCODING=utf-8
+
+LOG_FILE="processing.log"
+
+exec > >(tee -a "$LOG_FILE") 2>&1
+
 echo "Starting email processing system..."
 
-python app/main.py
+python -m app.main
 
 echo "Processing finished."
